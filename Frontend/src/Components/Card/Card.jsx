@@ -10,7 +10,7 @@ const CardComponent = ({ margin }) => {
     const [liked, setLiked] = useState(false);
 
     return (
-        <div className="border border-gray-300 h-96 w-[460px] h-[410px] rounded-[20px] overflow-hidden" style={{ margin }} >
+        <div className="border border-gray-300 h-96 w-[460px] h-[410px] rounded-[20px] overflow-hidden shadow-xl hover:scale-101 transform transition-transform duration-100 ease-in-out" style={{ margin }} >
             <div className="h-[200px] w-[100%] overflow-hidden">
                 <img
                     src={image}
