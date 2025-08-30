@@ -11,17 +11,7 @@ createRoot(document.getElementById('root')).render(
     <Navbar />
     <RecipeBtn />
     <Calories />
-    <div className='max-w-[1500px] w-full m-[auto] flex flex-wrap gap-[35px]    p-[20px]'>
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
-      <CardComponent />
+    <div className='max-w-[1500px] w-full m-[auto] flex flex-wrap gap-[35px] p-[20px]'>
       <CardComponent />
     </div>
 
