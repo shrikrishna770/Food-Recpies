@@ -1,16 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Navbar from './Components/Navbar/Navbar'
-import CardComponent from './Components/Card/Card'
-import Calories from './Components/Calories/Calories'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Navbar/>
-    <CardComponent margin={`${100}px ${20}px`} />
-    <Calories />
-  </StrictMode>,
-)
-
-
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
