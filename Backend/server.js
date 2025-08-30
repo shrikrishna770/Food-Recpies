@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const authRoutes = require("./routes/authRoutes");
+const recipeRoutes = require("./middleware/recipeRoutes"); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/recipes", recipeRoutes); 
 
 // MongoDB connection & server start
 mongoose
