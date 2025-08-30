@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const authRoutes = require("./routes/authRoutes");
-const recipeRoutes = require("./routes/recipeRoutes"); // ✅ import recipe routes
+const recipeRoutes = require("./middleware/recipeRoutes"); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
