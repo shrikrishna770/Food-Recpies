@@ -11,6 +11,8 @@
 
  #  Commit your changes:
 
+ # git commit -m "changes"
+
 <!-- Push your branch to GitHub: -->
 
 # git push origin backend-feature
