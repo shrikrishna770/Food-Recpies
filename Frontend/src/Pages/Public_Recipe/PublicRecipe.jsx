@@ -46,7 +46,6 @@ const PublicFeed = () => {
         </div>
       </div>
 
-      {/* 🔥 Updated: show user name for each public recipe */}
       <RecipeList
         recipes={filteredRecipes.map((recipe) => ({
           ...recipe,

@@ -6,6 +6,7 @@ import AddItem from "./Components/Crud/AddItems";
 import MyRecipe from "./Pages/My_Recipe/MyRecipe";
 import PublicFeed from "./Pages/Public_Recipe/PublicRecipe";
 import PrivateRoute from "./Components/PrivateRoute";
+import Wishlist from "./Pages/Wishliat/wishlist";
 
 function App() {
    return (
@@ -50,6 +51,14 @@ function App() {
         element={
           <PrivateRoute>
             <AddItem />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/wishlist"
+        element={
+          <PrivateRoute>
+            <Wishlist />
           </PrivateRoute>
         }
       />
