@@ -1,21 +1,33 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import RecipeBtn from "../../Components/Crud/AddRecipeBtn";
 import Calories from "../../Components/Calories/Calories";
-import CardComponent from "../../Components/Card/Card";
-
+import RecipeList from "../../Components/RecipeList";
 
 const Dashboard = () => {
-    return (
-        <>
-            <Navbar/>
-            <RecipeBtn/>
-            <Calories/>
-            <div className="max-w-[1400px] w-full m-[auto] flex flex-wrap gap-[35px] p-[20px]  px-4">
-                 <CardComponent />
-            </div> 
-            
-        </>
-    )
-}
+  const [recipes, setRecipes] = useState([]);
 
-export default Dashboard
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/recipes");
+        const data = await res.json();
+        setRecipes(data); // backend already sorted newest first
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
+  return (
+    <>
+      <Navbar />
+      <RecipeBtn name="Dashboard"/>
+      <Calories />
+      <RecipeList recipes={recipes} emptyMessage="No public recipes found." />
+    </>
+  );
+};
+
+export default Dashboard;

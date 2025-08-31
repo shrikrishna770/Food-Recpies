@@ -2,7 +2,7 @@ import Caloriestrade from "../../assets/Caloriestrade.png";
 
 const Calories = () => {
   return (
-    <div className="max-w-[1400px] w-full mx-auto mb-[20px] px-4">
+    <div className="max-w-[1500px] w-full mx-auto mb-[20px] px-4">
       <div className="shadow-lg rounded-xl p-6 border border-gray-200 border-t-0">
         <h1 className="flex items-center gap-3 font-semibold text-xl text-gray-800">
           <img
