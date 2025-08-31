@@ -15,7 +15,8 @@ const recipeSchema = new mongoose.Schema({
   ingredients: [String],
   instruction: [String],
   tags: [String],
-  isPublic: { type: Boolean, default: false } // default private
+  isPublic: { type: Boolean, default: false }, // default private
+  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 }, { timestamps: true });
 
 

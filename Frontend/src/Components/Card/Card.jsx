@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CiHeart } from "react-icons/ci";
 import { FiClock } from "react-icons/fi";
 import { GoPeople } from "react-icons/go";
@@ -6,6 +6,40 @@ import { FaHeart } from "react-icons/fa";
 
 const CardComponent = ({ image, title, description, prepTime, servings, margin }) => {
   const [liked, setLiked] = useState(false);
+
+  // Check if this recipe is already in wishlist on mount
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser");
+    const wishlist = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
+    const isLiked = wishlist.some(item => item.title === title);
+    setLiked(isLiked);
+  }, [title]);
+
+  // Add to wishlist in localStorage
+  const addToWishlist = () => {
+    const user = localStorage.getItem("currentUser");
+    const wishlistKey = `wishlist_${user}`;
+    const wishlist = JSON.parse(localStorage.getItem(wishlistKey)) || [];
+    // Prevent duplicates
+    if (!wishlist.some(item => item.title === title)) {
+      wishlist.push({ image, title, description, prepTime, servings });
+      localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+    }
+    setLiked(true);
+    // Optionally, trigger a custom event to notify other components
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
+
+  // Remove from wishlist in localStorage
+  const removeFromWishlist = () => {
+    const user = localStorage.getItem("currentUser");
+    const wishlistKey = `wishlist_${user}`;
+    let wishlist = JSON.parse(localStorage.getItem(wishlistKey)) || [];
+    wishlist = wishlist.filter(item => item.title !== title);
+    localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+    setLiked(false);
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
 
   return (
     <div
@@ -18,7 +52,19 @@ const CardComponent = ({ image, title, description, prepTime, servings, margin }
       <div className="mt-[15px] px-[15px] flex flex-col gap-[8px]">
         <div className="flex items-center justify-between">
           <h1 className="text-[20px] font-[500]">{title}</h1>
-          {!liked ? ( <CiHeart size={28} onClick={() => setLiked(true)} className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300"/>) : (<FaHeart size={26} onClick={() => setLiked(false)} className="text-red-500 cursor-pointer" />)}
+          {!liked ? (
+            <CiHeart
+              size={28}
+              onClick={addToWishlist}
+              className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300"
+            />
+          ) : (
+            <FaHeart
+              size={26}
+              onClick={removeFromWishlist}
+              className="text-red-500 cursor-pointer"
+            />
+          )}
         </div>
 
         <p className="text-[#4d4b4a] text-sm line-clamp-2">{description}</p>
