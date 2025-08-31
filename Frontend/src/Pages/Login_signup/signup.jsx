@@ -109,11 +109,11 @@ function Signup() {
           Signup
         </button>
 
-        <p className="text-center text-xs text-gray-500 mt-2">
+         <p className="text-center text-xs text-gray-500 mt-2">
           Already have an account?{" "}
           <span
             className="text-[#7c5c4c] hover:underline cursor-pointer"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/login")} 
           >
             Login
           </span>

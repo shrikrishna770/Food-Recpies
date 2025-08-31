@@ -5,26 +5,54 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import AddItem from "./Components/Crud/AddItems";
 import MyRecipe from "./Pages/My_Recipe/MyRecipe";
 import PublicFeed from "./Pages/Public_Recipe/PublicRecipe";
+import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
-  return (
+   return (
     <Routes>
-      {/* Dashboard (could show all recipes or public only) */}
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-
-      {/* My Recipes (private) */}
-      <Route path="/my-recipes" element={<MyRecipe />} />
-
-      {/* Public Feed */}
-      <Route path="/public-feed" element={<PublicFeed />} />
-
-      {/* Add Recipe */}
-      <Route path="/add-item" element={<AddItem />} />
-
-      {/* Auth */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+
+        <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/my-recipes"
+        element={
+          <PrivateRoute>
+            <MyRecipe />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/public-feed"
+        element={
+          <PrivateRoute>
+            <PublicFeed />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/add-item"
+        element={
+          <PrivateRoute>
+            <AddItem />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

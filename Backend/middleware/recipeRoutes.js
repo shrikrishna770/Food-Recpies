@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 // Recipe Schema
 const recipeSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // 🔥 owner of recipe
   title: { type: String, required: true },
   description: String,
   image: String,
@@ -14,8 +15,9 @@ const recipeSchema = new mongoose.Schema({
   ingredients: [String],
   instruction: [String],
   tags: [String],
-  isPublic: Boolean
-}, { timestamps: true }); // adds createdAt & updatedAt
+  isPublic: { type: Boolean, default: false } // default private
+}, { timestamps: true });
+
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 

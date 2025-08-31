@@ -34,7 +34,6 @@ const AddItem = () => {
     }
   };
 
-  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,7 +60,7 @@ const AddItem = () => {
 
       if (res.ok) {
         alert("Recipe saved successfully!");
-        navigate("/dashboard"); // redirect back to dashboard
+        navigate("/dashboard"); 
       } else {
         const error = await res.json();
         alert("Error: " + error.error);
@@ -76,7 +75,6 @@ const AddItem = () => {
     <>
       <Navbar />
       <div className="mt-[90px] max-w-[850px] mx-auto  mb-[50px]">
-        {/* Back Button */}
         <div className="flex items-center py-[10px]">
           <Link to="/dashboard" className="flex items-center gap-1 text-[#16A34A] font-[500]">
             <MdArrowBack size={24} />
@@ -84,46 +82,23 @@ const AddItem = () => {
           </Link>
         </div>
 
-        {/* Form */}
         <div className="mt-[10px] py-[20px] px-[20px] mx-[20px] mb-[20px] shadow-lg">
           <h1 className="font-[500] text-[22px]">Add New Recipe</h1>
           <form onSubmit={handleSubmit}>
-            {/* Recipe Title */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label htmlFor="recipeTitle">Recipe Title</label>
-              <input
-                type="text"
-                id="recipeTitle"
-                required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter recipe title"
-                className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"
+              <input type="text" id="recipeTitle" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter recipe title" className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"
               />
             </div>
 
-            {/* Description */}
             <div className="flex flex-col mt-[40px] gap-[5px]">
               <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Brief description of your recipe"
-                className="border border-gray-300 outline-none rounded-lg h-[80px] pl-[10px] pt-[10px] text-[14px] text-[#575959]"
-              />
+              <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Brief description of your recipe" className="border border-gray-300 outline-none rounded-lg h-[80px] pl-[10px] pt-[10px] text-[14px] text-[#575959]" />
             </div>
 
-            {/* Image */}
             <div className="flex flex-col mt-[30px] gap-[5px]">
               <label htmlFor="image">Image URL</label>
-              <input
-                type="url"
-                id="image"
-                value={image}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="Enter image url"
-                className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"
+              <input type="url" id="image" value={image} onChange={(e) => setImageUrl(e.target.value)} placeholder="Enter image url" className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"
               />
             </div>
             {image && (
@@ -133,7 +108,6 @@ const AddItem = () => {
               </div>
             )}
 
-            {/* Times, Servings, Calories */}
             <div className="flex mt-[30px] gap-[30px]">
               <div className="flex flex-col w-[50%] gap-[5px]">
                 <label>Prep Time</label>
@@ -156,7 +130,6 @@ const AddItem = () => {
               </div>
             </div>
 
-            {/* Ingredients */}
             <div className="flex flex-col mt-[40px] gap-[5px]">
               <label>Ingredients</label>
               {ingredients.map((item, index) => (
@@ -168,7 +141,6 @@ const AddItem = () => {
               <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(ingredients, setIngredients)}>+ Add Ingredient</h1>
             </div>
 
-            {/* Instructions */}
             <div className="flex flex-col mt-[40px] gap-[5px]">
               <label>Instructions</label>
               {instructions.map((step, index) => (
@@ -181,7 +153,6 @@ const AddItem = () => {
               <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(instructions, setInstructions)}>+ Add Step</h1>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-col mt-[40px] gap-[5px]">
               <label>Tags</label>
               <div className="flex flex-row flex-wrap gap-[20px]">
@@ -195,7 +166,6 @@ const AddItem = () => {
               <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(tags, setTags)}>+ Add Tag</h1>
             </div>
 
-            {/* Public Checkbox */}
             <div className="flex flex-col gap-[10px] mt-[40px] text-[#575959]">
               <div className="flex flex-row gap-[10px]">
                 <input type="checkbox" id="public" checked={isPublic} onChange={(e) => setIsPublic(e.target.checked)} />
@@ -204,7 +174,6 @@ const AddItem = () => {
               <p>Public recipes will appear in the community feed for other users to discover.</p>
             </div>
 
-            {/* Buttons */}
             <div className="mt-[40px] flex justify-end gap-[20px] ">
               <button type="button" className="border border-gray-300 px-[20px] py-[8px] rounded-[8px]">Cancel</button>
               <button type="submit" className="border px-[20px] py-[8px] rounded-[8px] bg-green-600 text-white hover:bg-green-700">Save Recipe</button>

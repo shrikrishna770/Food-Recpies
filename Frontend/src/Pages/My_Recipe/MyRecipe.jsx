@@ -7,17 +7,21 @@ const MyRecipe = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchPrivateRecipes = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/recipes/private");
-        const data = await res.json();
-        setRecipes(data); // backend already returns newest first
-      } catch (err) {
-        console.error("Error fetching private recipes:", err);
-      }
-    };
-    fetchPrivateRecipes();
-  }, []);
+  const fetchPrivateRecipes = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:5000/api/recipes/private", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      setRecipes(data);
+    } catch (err) {
+      console.error("Error fetching private recipes:", err);
+    }
+  };
+  fetchPrivateRecipes();
+}, []);
+
 
   return (
     <>

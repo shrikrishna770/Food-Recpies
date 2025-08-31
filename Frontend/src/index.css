@@ -3,3 +3,8 @@
 *{
     font-family: Poppins;
 }
+
+ul li:hover{
+    color: #16A34A;
+    text-decoration: underline;
+}
