@@ -64,9 +64,12 @@ function Login() {
           Login
         </button>
 
-        <p className="text-center text-xs text-gray-500 mt-2">
+          <p className="text-center text-xs text-gray-500 mt-2">
           Don’t have an account?{" "}
-          <span className="text-[#7c5c4c] hover:underline cursor-pointer" onClick={() => navigate("/")}>
+          <span
+            className="text-[#7c5c4c] hover:underline cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             Signup
           </span>
         </p>
