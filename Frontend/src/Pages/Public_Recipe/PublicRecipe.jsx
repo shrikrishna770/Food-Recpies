@@ -10,7 +10,8 @@ const PublicFeed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/recipes");
+        // 🔥 Updated: fetch only public recipes from backend
+        const res = await fetch("http://localhost:5000/api/recipes"); 
         const data = await res.json();
         setRecipes(data); 
       } catch (err) {
@@ -20,6 +21,7 @@ const PublicFeed = () => {
     fetchRecipes();
   }, []);
 
+  // 🔥 Filter search term for title or description
   const filteredRecipes = recipes.filter((recipe) => {
     const title = recipe.title || "";
     const description = recipe.description || "";
@@ -43,7 +45,15 @@ const PublicFeed = () => {
           />
         </div>
       </div>
-      <RecipeList recipes={filteredRecipes} emptyMessage="No public recipes found." />
+
+      {/* 🔥 Updated: show user name for each public recipe */}
+      <RecipeList
+        recipes={filteredRecipes.map((recipe) => ({
+          ...recipe,
+          creatorName: recipe.user?.name || "Anonymous" // add creator name
+        }))}
+        emptyMessage="No public recipes found."
+      />
     </>
   );
 };
