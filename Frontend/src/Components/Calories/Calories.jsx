@@ -5,11 +5,7 @@ const Calories = () => {
     <div className="max-w-[1500px] w-full mx-auto mb-[20px] px-4">
       <div className="shadow-lg rounded-xl p-6 border border-gray-200 border-t-0">
         <h1 className="flex items-center gap-3 font-semibold text-xl text-gray-800">
-          <img
-            src={Caloriestrade}
-            alt="Calories Icon"
-            className="w-10 h-10 object-contain"
-          />
+          <img src={Caloriestrade} alt="Calories Icon" className="w-10 h-10 object-contain"/>
           Calories Overview
         </h1>
 
@@ -30,7 +26,6 @@ const Calories = () => {
       </div>
     </div>
   );
-
 };
 
 export default Calories;
