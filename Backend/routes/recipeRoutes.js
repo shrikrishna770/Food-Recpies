@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const auth = require("../middleware/auth"); // JWT auth middleware
+const auth = require("../middleware/auth"); // use JWT auth
 
 // Recipe Schema
 const recipeSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const recipeSchema = new mongoose.Schema({
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 
-// GET all public recipes (anyone can see)
+// GET all public recipes
 router.get("/", async (req, res) => {
   try {
     const recipes = await Recipe.find({ isPublic: true }).sort({ createdAt: -1 }).populate("user", "name");
@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET private recipes of logged-in user
+// GET private recipes for logged-in user
 router.get("/private", auth, async (req, res) => {
   try {
     const privateRecipes = await Recipe.find({ user: req.user.id }).sort({ createdAt: -1 });
@@ -41,12 +41,12 @@ router.get("/private", auth, async (req, res) => {
   }
 });
 
-// POST new recipe (logged-in user)
+// POST new recipe (requires login)
 router.post("/", auth, async (req, res) => {
   try {
     const newRecipe = new Recipe({
       ...req.body,
-      user: req.user.id
+      user: req.user.id // 🔥 add logged-in user as owner
     });
     await newRecipe.save();
     res.status(201).json(newRecipe);
