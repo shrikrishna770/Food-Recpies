@@ -12,18 +12,28 @@ const recipeSchema = new mongoose.Schema({
   servings: String,
   calories: String,
   ingredients: [String],
-  steps: [String],
+  instruction: [String],
   tags: [String],
   isPublic: Boolean
-});
+}, { timestamps: true }); // adds createdAt & updatedAt
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 
-// GET all recipes
+// GET all public recipes (newest first)
 router.get("/", async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const recipes = await Recipe.find({ isPublic: true }).sort({ createdAt: -1 });
     res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET private recipes only (newest first)
+router.get("/private", async (req, res) => {
+  try {
+    const privateRecipes = await Recipe.find({ isPublic: false }).sort({ createdAt: -1 });
+    res.json(privateRecipes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
