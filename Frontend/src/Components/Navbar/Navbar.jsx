@@ -16,6 +16,7 @@ const Navbar = () => {
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/my-recipes">My Recipe</a></li>
                     <li><a href="/public-feed">Public Feed</a></li>
+                    <li><a href="/wishlist">Wishlist</a></li>
                     <li className="flex items-center gap-2 p-2">
                         <button
                             onClick={() => {
