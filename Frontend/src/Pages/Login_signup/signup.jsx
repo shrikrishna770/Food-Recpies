@@ -27,13 +27,11 @@ function Signup() {
           email,
           password,
         });
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("currentUser", data.user._id); 
-          navigate("/dashboard");
+        // Redirect to login page if signup is successful
+        if (response.status === 201 || response.status === 200) {
+          actions.resetForm();
+          navigate("/login");
         }
-        actions.resetForm();
       } catch (err) {
         alert(err.response?.data?.message || "Signup failed");
       }
