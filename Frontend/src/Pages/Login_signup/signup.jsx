@@ -22,13 +22,18 @@ function Signup() {
     onSubmit: async (values, actions) => {
       try {
         const { name, email, password } = values;
-        await axios.post("http://localhost:5000/api/auth/signup", {
+        const response = await axios.post("http://localhost:5000/api/auth/signup", {
           name,
           email,
           password,
         });
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("currentUser", data.user._id); 
+          navigate("/dashboard");
+        }
         actions.resetForm();
-        navigate("/login");
       } catch (err) {
         alert(err.response?.data?.message || "Signup failed");
       }
