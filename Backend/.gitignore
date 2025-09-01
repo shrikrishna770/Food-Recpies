@@ -34,3 +34,4 @@ Thumbs.db
 # Optional: npm package lock
 package-lock.json
 yarn.lock
+serviceAccountKey.json

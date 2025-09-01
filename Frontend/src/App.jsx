@@ -8,61 +8,69 @@ import PublicFeed from "./Pages/Public_Recipe/PublicRecipe";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wishlist from "./Pages/Wishliat/wishlist";
 
+// 🔹 Toastify imports
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
-   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+  return (
+    <>
+      {/* Routes */}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/my-recipes"
-        element={
-          <PrivateRoute>
-            <MyRecipe />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/public-feed"
-        element={
-          <PrivateRoute>
-            <PublicFeed />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/add-item"
-        element={
-          <PrivateRoute>
-            <AddItem />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/wishlist"
-        element={
-          <PrivateRoute>
-            <Wishlist />
-          </PrivateRoute>
-        }
-      />
-    </Routes>
+          path="/"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/my-recipes"
+          element={
+            <PrivateRoute>
+              <MyRecipe />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/public-feed"
+          element={
+            <PrivateRoute>
+              <PublicFeed />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/add-item"
+          element={
+            <PrivateRoute>
+              <AddItem />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+      <ToastContainer position="top-right" autoClose={2000} />
+    </>
   );
 }
 

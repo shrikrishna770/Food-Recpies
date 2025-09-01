@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const authRoutes = require("./routes/authRoutes");
-const recipeRoutes = require("./routes/recipeRoutes"); // 🔥 corrected path
+const recipeRoutes = require("./routes/recipeRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,7 +18,6 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/recipes", recipeRoutes);
 
-// MongoDB connection & server start
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
