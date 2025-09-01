@@ -24,10 +24,22 @@ const Dashboard = () => {
     };
     fetchRecipes();
 
-    // Fetch top 3 wishlist items for current user
     const user = localStorage.getItem("currentUser");
     const wishlistData = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
     setWishlist(wishlistData.slice(0, 3));
+  }, []);
+
+  useEffect(() => {
+    const updateWishlist = () => {
+      const user = localStorage.getItem("currentUser");
+      const wishlistData = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
+      setWishlist(wishlistData.slice(-3).reverse()); 
+    };
+
+    updateWishlist(); 
+
+    window.addEventListener("wishlistUpdated", updateWishlist);
+    return () => window.removeEventListener("wishlistUpdated", updateWishlist);
   }, []);
 
   return (
@@ -64,8 +76,6 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-
-      {/* <RecipeList recipes={recipes} emptyMessage="No public recipes found." /> */}
     </>
   );
 };
