@@ -58,7 +58,7 @@ const Navbar = () => {
               >
                 {/* User Name */}
                 <p className="px-4 py-2 border-b border-gray-600 font-semibold">
-                  {user?.name || "Guest"}
+                  {user?.name}
                 </p>
 
                 {/* Logout */}
