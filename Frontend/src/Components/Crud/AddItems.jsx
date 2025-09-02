@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import Navbar from "../Navbar/Navbar";
-
+import { toast } from "react-toastify";
 const AddItem = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -62,7 +62,7 @@ const AddItem = () => {
             });
 
             if (res.ok) {
-                alert("Recipe saved successfully!");
+                toast.success("Recipe saved successfully 🔥");
                 navigate("/dashboard");
             } else {
                 const error = await res.json();
@@ -70,7 +70,7 @@ const AddItem = () => {
             }
         } catch (err) {
             console.error(err);
-            alert("Failed to save recipe");
+            toast.error("Failed to save recipe ❌");
         }
     };
 
