@@ -33,11 +33,13 @@ const Wishlist = () => {
     });
 
     return (
-        <>
+        <div className="flex flex-col max-w-[1500px] m-[auto]">
             <Navbar />
-            <div className="mt-[100px] max-w-[1500px] m-[auto] relative">
-                <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[10px]" />
-
+            <div className=" w-full mt-[100px] px-4 ">
+                <h1 className="font-[500] text-[22px]">Wishlist</h1>
+            </div>
+            <div className="mt-[30px] relative px-4">
+                <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[23px]" />
                 <input
                     type="text"
                     value={searchTerm}
@@ -46,7 +48,7 @@ const Wishlist = () => {
                     placeholder="Search Wishlist recipes..."
                 />
             </div>
-            <div className="flex flex-wrap gap-8 justify-center mt-[50px]">
+            <div className="flex flex-wrap gap-8  px-[25px] mt-[50px]">
                 {filteredWishlist.length === 0 ? (
                     <h2 className="text-xl text-gray-600">No Wishlist recipe found.</h2>
                 ) : (
@@ -59,11 +61,20 @@ const Wishlist = () => {
                             prepTime={item.prepTime}
                             servings={item.servings}
                             margin="0"
+                            onRemove={() => {
+                                const user = localStorage.getItem("currentUser");
+                                const wishlistKey = `wishlist_${user}`;
+                                let wishlistLocal = JSON.parse(localStorage.getItem(wishlistKey)) || [];
+                                wishlistLocal = wishlistLocal.filter((i) => i.title !== item.title);
+                                localStorage.setItem(wishlistKey, JSON.stringify(wishlistLocal));
+                                setWishlist(wishlistLocal);
+                            }}
                         />
+
                     ))
                 )}
             </div>
-        </>
+        </div>
     );
 };
 

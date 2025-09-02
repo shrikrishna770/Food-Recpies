@@ -25,8 +25,9 @@ function Login() {
           values
         );
 
-        // LocalStorage me full user save
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("currentUser", res.data.user.id || res.data.user._id);
+        navigate("/dashboard");
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -58,7 +59,6 @@ function Login() {
         { idToken }
       );
 
-      // Google user data save
       localStorage.setItem("token", res.data.token);
       localStorage.setItem(
         "user",
@@ -121,7 +121,6 @@ function Login() {
           Login
         </button>
 
-        {/* Google login button */}
         <button
           type="button"
           onClick={handleGoogleLogin}

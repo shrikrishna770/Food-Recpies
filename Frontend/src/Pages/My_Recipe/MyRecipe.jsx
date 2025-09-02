@@ -24,7 +24,6 @@ const MyRecipe = () => {
     fetchPrivateRecipes();
   }, []);
 
-  // Filter recipes based on search term
   const filteredRecipes = recipes.filter((item) => {
     const title = item.title || "";
     const description = item.description || "";
@@ -39,17 +38,19 @@ const MyRecipe = () => {
     <>
       <Navbar />
       <RecipeBtn name="My Recipe" />
-      <div className="mt-[30px] max-w-[1500px] m-[auto] relative">
-        <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[10px]" />
+      <div className="mt-[30px] max-w-[1500px] m-[auto] relative  px-4">
+        <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[23px]" />
         <input
           type="text"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           placeholder="Search your recipes..."
-          className="border border-gray-300 rounded-md h-[40px] w-full pl-[35px] outline-none text-[14px]"
+          className="border border-gray-300 rounded-md h-[40px] w-full pl-[35px] outline-none text-[14px] "
         />
       </div>
-      <RecipeList recipes={filteredRecipes} emptyMessage="No private recipes found." />
+      <div className="mt-[20px]">
+        <RecipeList recipes={filteredRecipes} emptyMessage="No private recipes found." />
+      </div>
     </>
   );
 };

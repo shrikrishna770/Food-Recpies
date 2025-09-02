@@ -15,7 +15,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/recipes"); 
+        const res = await fetch("http://localhost:5000/api/recipes");
         const data = await res.json();
         setRecipes(data);
       } catch (err) {
@@ -33,10 +33,10 @@ const Dashboard = () => {
     const updateWishlist = () => {
       const user = localStorage.getItem("currentUser");
       const wishlistData = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
-      setWishlist(wishlistData.slice(-3).reverse()); 
+      setWishlist(wishlistData.slice(-3).reverse());
     };
 
-    updateWishlist(); 
+    updateWishlist();
 
     window.addEventListener("wishlistUpdated", updateWishlist);
     return () => window.removeEventListener("wishlistUpdated", updateWishlist);
@@ -45,12 +45,12 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <RecipeBtn name="Dashboard"/>
+      <RecipeBtn name="Dashboard" />
       <Calories />
 
       <div className="max-w-[1500px] w-full m-auto px-4 mt-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold">Wishlist</h2>
+          <h2 className="font-[500] text-[22px]">Wishlist</h2>
           <button
             className="text-green-600 font-medium hover:underline"
             onClick={() => navigate("/wishlist")}
@@ -71,10 +71,26 @@ const Dashboard = () => {
                 prepTime={item.prepTime}
                 servings={item.servings}
                 margin="0"
+                onRemove={() => {
+                  const user = localStorage.getItem("currentUser");
+                  const wishlistKey = `wishlist_${user}`;
+                  let wishlistLocal = JSON.parse(localStorage.getItem(wishlistKey)) || [];
+
+                  // Remove this item
+                  wishlistLocal = wishlistLocal.filter(i => i.title !== item.title);
+                  localStorage.setItem(wishlistKey, JSON.stringify(wishlistLocal));
+
+                  // Update Dashboard state
+                  setWishlist(wishlistLocal.slice(-3).reverse());
+
+                  // Optional: trigger event for Wishlist page to update
+                  window.dispatchEvent(new Event("wishlistUpdated"));
+                }}
               />
             ))
           )}
         </div>
+
       </div>
     </>
   );
