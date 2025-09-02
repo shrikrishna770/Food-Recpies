@@ -22,14 +22,14 @@ function Signup() {
     onSubmit: async (values, actions) => {
       try {
         const { name, email, password } = values;
-        const response = await axios.post("http://localhost:5000/api/auth/signup", {
-          name,
-          email,
-          password,
-        });
-        // Redirect to login page if signup is successful
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/signup",
+          { name, email, password }
+        );
+
         if (response.status === 201 || response.status === 200) {
           actions.resetForm();
+          // Redirect to login page after successful signup
           navigate("/login");
         }
       } catch (err) {
@@ -48,7 +48,7 @@ function Signup() {
           Create Account
         </h1>
         <p className="text-center text-gray-500 mb-4">
-          Welcome to  favourite recipes{" "}
+          Welcome to favourite recipes
         </p>
 
         <input
@@ -112,11 +112,11 @@ function Signup() {
           Signup
         </button>
 
-         <p className="text-center text-xs text-gray-500 mt-2">
+        <p className="text-center text-xs text-gray-500 mt-2">
           Already have an account?{" "}
           <span
             className="text-[#7c5c4c] hover:underline cursor-pointer"
-            onClick={() => navigate("/login")} 
+            onClick={() => navigate("/login")}
           >
             Login
           </span>

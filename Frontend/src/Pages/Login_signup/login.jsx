@@ -24,10 +24,18 @@ function Login() {
           "http://localhost:5000/api/auth/login",
           values
         );
+
+        // LocalStorage me full user save
         localStorage.setItem("token", res.data.token);
         localStorage.setItem(
-          "currentUser",
-          res.data.user.id || res.data.user._id
+          "user",
+          JSON.stringify({
+            id: res.data.user.id || res.data.user._id,
+            name: res.data.user.name,
+            email: res.data.user.email,
+            photo: res.data.user.photo || null,
+            token: res.data.token,
+          })
         );
 
         toast.success("Login successful 🎉");
@@ -43,17 +51,24 @@ function Login() {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-    
       const idToken = await user.getIdToken();
 
       const res = await axios.post(
         "http://localhost:5000/api/auth/google-login",
         { idToken }
       );
+
+      // Google user data save
       localStorage.setItem("token", res.data.token);
       localStorage.setItem(
-        "currentUser",
-        res.data.user.id || res.data.user._id
+        "user",
+        JSON.stringify({
+          id: res.data.user.id || res.data.user._id,
+          name: res.data.user.name || user.displayName,
+          email: res.data.user.email || user.email,
+          photo: res.data.user.photo || user.photoURL || null,
+          token: res.data.token,
+        })
       );
 
       toast.success(`Welcome ${res.data.user.name || user.displayName} 🎉`);
