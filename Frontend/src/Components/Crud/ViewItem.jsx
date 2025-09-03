@@ -63,7 +63,7 @@ const {
           </Link>
         </div>
 
-        <div className=" mx-[40px] mb-[20px] shadow-lg rounded-xl p-[20px]">
+        <div className="mt-0 mx-[40px] mb-[20px] shadow-lg rounded-xl p-[20px]">
           {image && (
             <img
               src={image}
