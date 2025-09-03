@@ -7,8 +7,8 @@ import MyRecipe from "./Pages/My_Recipe/MyRecipe";
 import PublicFeed from "./Pages/Public_Recipe/PublicRecipe";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wishlist from "./Pages/Wishliat/wishlist";
+import ViewItem from "./Components/Crud/ViewItem";
 
-// 🔹 Toastify imports
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -60,6 +60,17 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Updated ViewItem route with :id */}
+        <Route
+          path="/view-item/:id"
+          element={
+            <PrivateRoute>
+              <ViewItem />
+            </PrivateRoute>
+          }
+        />
+
         <Route
           path="/wishlist"
           element={
