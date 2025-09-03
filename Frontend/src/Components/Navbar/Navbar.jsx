@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <div className="flex shadow-md rounded-lg fixed top-0 left-0 right-0 z-10 backdrop-blur-3xl bg-white/30">
-      <nav className="flex max-w-[1500px] w-full h-[70px] mx-auto items-center justify-between px-4">
+      <nav className="flex max-w-[1400px] w-full h-[70px] mx-auto items-center justify-between px-4">
         <h1 className="text-[#16A34A] font-[600] text-[24px] flex items-center">
           <Link to="/">RecipeSync</Link>
         </h1>
@@ -43,19 +43,13 @@ const Navbar = () => {
                 onClick={() => setShowAccountOptions(!showAccountOptions)}
               />
             ) : (
-              <div
-                onClick={() => setShowAccountOptions(!showAccountOptions)}
-                className="w-9 h-9 flex items-center justify-center bg-green-600 text-white rounded-full cursor-pointer font-bold"
-              >
+              <div onClick={() => setShowAccountOptions(!showAccountOptions)} className="w-9 h-9 flex items-center justify-center bg-green-600 text-white rounded-full cursor-pointer font-bold" >
                 {user?.name ? user.name[0].toUpperCase() : "?"}
               </div>
             )}
 
             {showAccountOptions && (
-              <div
-                className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-gray-700 to-gray-900 text-white rounded-lg shadow-lg py-4 z-50"
-                onMouseLeave={() => setShowAccountOptions(false)}
-              >
+              <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-gray-700 to-gray-900 text-white rounded-lg shadow-lg py-4 z-50" onMouseLeave={() => setShowAccountOptions(false)}>
                 <p className="px-4 py-2 border-b border-gray-600 font-semibold">
                   {user?.name}
                 </p>
@@ -71,7 +65,6 @@ const Navbar = () => {
           </div>
         </ul>
 
-        {/* Mobile menu button */}
         <button
           className="md:hidden p-2"
           onClick={() => setIsOpen(!isOpen)}
@@ -83,9 +76,8 @@ const Navbar = () => {
 
       {isOpen && (
         <div
-          className={`absolute top-[70px] left-[60%] right-0 bg-white/95 shadow-lg rounded-b-lg md:hidden border border-gray-200 overflow-hidden transition-all duration-500 ease-in-out ${
-            isOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
-          }`}
+          className={`absolute top-[70px] left-[60%] right-0 bg-white/95 shadow-lg rounded-b-lg md:hidden border border-gray-200 overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
           <ul className="flex flex-col gap-4 py-4 text-[16px] font-medium ml-[10px]">
             <li><Link to="/dashboard" onClick={() => setIsOpen(false)}>Dashboard</Link></li>

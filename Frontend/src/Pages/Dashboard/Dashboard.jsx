@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import RecipeBtn from "../../Components/Crud/AddRecipeBtn";
 import Calories from "../../Components/Calories/Calories";
-import RecipeList from "../../Components/RecipeList";
-// import WishlistCard from "../../Components/Card/WishlistCard";
 import WishlistCard from "../Wishliat/WishlistCard";
 
 const Dashboard = () => {
@@ -48,7 +46,7 @@ const Dashboard = () => {
       <RecipeBtn name="Dashboard" />
       <Calories />
 
-      <div className="max-w-[1500px] w-full m-auto px-4 mt-8">
+      <div className="max-w-[1400px] w-full m-auto px-4 mt-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-[500] text-[22px]">Wishlist</h2>
           <button
@@ -76,14 +74,11 @@ const Dashboard = () => {
                   const wishlistKey = `wishlist_${user}`;
                   let wishlistLocal = JSON.parse(localStorage.getItem(wishlistKey)) || [];
 
-                  // Remove this item
                   wishlistLocal = wishlistLocal.filter(i => i.title !== item.title);
                   localStorage.setItem(wishlistKey, JSON.stringify(wishlistLocal));
 
-                  // Update Dashboard state
                   setWishlist(wishlistLocal.slice(-3).reverse());
 
-                  // Optional: trigger event for Wishlist page to update
                   window.dispatchEvent(new Event("wishlistUpdated"));
                 }}
               />

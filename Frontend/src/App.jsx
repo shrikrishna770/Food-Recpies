@@ -15,7 +15,6 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      {/* Routes */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -60,8 +59,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
-        {/* Updated ViewItem route with :id */}
         <Route
           path="/view-item/:id"
           element={
@@ -70,7 +67,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/wishlist"
           element={
