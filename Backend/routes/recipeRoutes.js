@@ -14,7 +14,7 @@ const recipeSchema = new mongoose.Schema({
   servings: String,
   calories: String,
   ingredients: [String],
-  steps: [String],
+  instruction: [String],
   tags: [String],
   isPublic: { type: Boolean, default: false } // private by default
 }, { timestamps: true });
