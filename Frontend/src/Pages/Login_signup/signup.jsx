@@ -29,7 +29,6 @@ function Signup() {
 
         if (response.status === 201 || response.status === 200) {
           actions.resetForm();
-          // Redirect to login page after successful signup
           navigate("/login");
         }
       } catch (err) {

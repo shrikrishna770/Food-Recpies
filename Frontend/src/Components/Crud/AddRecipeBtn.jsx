@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const RecipeBtn = ({name}) => {
   return (
-    <div className="flex justify-between max-w-[1500px] w-full mx-auto items-center mt-[100px] mb-[30px] px-4">
+    <div className="flex justify-between max-w-[1400px] w-full mx-auto items-center mt-[100px] mb-[30px] px-4">
       <h1 className="font-[500] text-[22px]">{name}</h1>
       <div>
         <Link to="/add-item">

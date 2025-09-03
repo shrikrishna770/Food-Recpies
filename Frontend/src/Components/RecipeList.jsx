@@ -7,7 +7,7 @@ const RecipeList = ({ recipes, emptyMessage }) => {
   }
 
   return (
-    <div className="max-w-[1500px] w-full m-auto flex flex-wrap gap-[35px] p-[20px] px-4 mt-[20px]">
+    <div className="max-w-[1400px] w-full m-auto flex flex-wrap gap-[35px] p-[20px] px-4 mt-[20px]">
       {recipes.map((recipe, index) => (
         <motion.div
           key={recipe._id}
