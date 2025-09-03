@@ -8,6 +8,7 @@ import PublicFeed from "./Pages/Public_Recipe/PublicRecipe";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wishlist from "./Pages/Wishliat/wishlist";
 import ViewItem from "./Components/Crud/ViewItem";
+import EditItem from "./Components/Crud/EditItem";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -64,6 +65,14 @@ function App() {
           element={
             <PrivateRoute>
               <ViewItem />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-recipe/:id"
+          element={
+            <PrivateRoute>
+              <EditItem />
             </PrivateRoute>
           }
         />
