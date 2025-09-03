@@ -56,12 +56,10 @@ const Navbar = () => {
                 className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-gray-700 to-gray-900 text-white rounded-lg shadow-lg py-4 z-50"
                 onMouseLeave={() => setShowAccountOptions(false)}
               >
-                {/* User Name */}
                 <p className="px-4 py-2 border-b border-gray-600 font-semibold">
                   {user?.name}
                 </p>
 
-                {/* Logout */}
                 <button
                   onClick={handleLogout}
                   className="flex items-center w-full px-4 py-2 hover:bg-gray-600"
@@ -83,7 +81,6 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* Mobile dropdown */}
       {isOpen && (
         <div
           className={`absolute top-[70px] left-[60%] right-0 bg-white/95 shadow-lg rounded-b-lg md:hidden border border-gray-200 overflow-hidden transition-all duration-500 ease-in-out ${
