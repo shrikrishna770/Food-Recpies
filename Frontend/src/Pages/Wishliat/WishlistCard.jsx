@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa";
 const WishlistCard = ({ image, title, description, prepTime, servings, margin, onRemove}) => {
   return (
     <div
-      className="border border-gray-300 w-[460px] h-[400px] rounded-[20px] overflow-hidden shadow-xl"
+      className="border border-gray-300 w-[430px] h-[400px] rounded-[20px] overflow-hidden shadow-xl"
       style={{ margin }}
     >
       <div className="h-[200px] w-full overflow-hidden">
