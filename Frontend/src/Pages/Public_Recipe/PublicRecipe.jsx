@@ -10,7 +10,6 @@ const PublicFeed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        // 🔥 Updated: fetch only public recipes from backend
         const res = await fetch("http://localhost:5000/api/recipes"); 
         const data = await res.json();
         setRecipes(data); 
@@ -21,7 +20,6 @@ const PublicFeed = () => {
     fetchRecipes();
   }, []);
 
-  // 🔥 Filter search term for title or description
   const filteredRecipes = recipes.filter((recipe) => {
     const title = recipe.title || "";
     const description = recipe.description || "";
@@ -32,7 +30,7 @@ const PublicFeed = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col justify-between max-w-[1500px] w-full mx-auto gap-[30px] mt-[100px] mb-[30px] px-4">
+      <div className="flex flex-col justify-between max-w-[1400px] w-full mx-auto gap-[30px] mt-[100px] mb-[30px] px-4">
         <h1 className="font-[500] text-[22px]">Community Recipes</h1>
         <div className="relative">
           <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[10px]" />
@@ -49,7 +47,7 @@ const PublicFeed = () => {
       <RecipeList
         recipes={filteredRecipes.map((recipe) => ({
           ...recipe,
-          creatorName: recipe.user?.name || "Anonymous" // add creator name
+          creatorName: recipe.user?.name || "Anonymous" 
         }))}
         emptyMessage="No public recipes found."
       />

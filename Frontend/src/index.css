@@ -5,7 +5,7 @@
     scrollbar-width: none;
 }
 
-ul li:hover{
+nav ul li:hover{
     color: #16A34A;
     text-decoration: underline;
 }
