@@ -5,21 +5,7 @@ import { GoPeople } from "react-icons/go";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const CardComponent = ({
-  _id,
-  image,
-  title,
-  description,
-  prepTime,
-  cookTime,
-  servings,
-  calories,
-  ingredients = [],
-  instruction = [],
-  tags = [],
-  isPublic = false,
-  margin,
-}) => {
+const CardComponent = ({ _id, image, title, description, prepTime, cookTime, servings, calories, ingredients = [], instruction = [], tags = [], isPublic = false, margin}) => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
@@ -54,14 +40,12 @@ const CardComponent = ({
   return (
     <div
       className="border border-gray-300 w-[460px] h-[400px] rounded-[20px] overflow-hidden shadow-xl hover:scale-101 transform transition-transform duration-100 ease-in-out"
-      style={{ margin }}
-    >
+      style={{ margin }}>
       <div className="h-[200px] w-full overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"
-        />
+          className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"/>
       </div>
 
       <div className="mt-[15px] px-[15px] flex flex-col gap-[8px]">
@@ -71,14 +55,12 @@ const CardComponent = ({
             <CiHeart
               size={28}
               onClick={addToWishlist}
-              className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300"
-            />
+              className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300"/>
           ) : (
             <FaHeart
               size={26}
               onClick={removeFromWishlist}
-              className="text-red-500 cursor-pointer"
-            />
+              className="text-red-500 cursor-pointer"/>
           )}
         </div>
 
@@ -95,23 +77,9 @@ const CardComponent = ({
           </div>
         </div>
 
-        {/* Link to ViewItem with all recipe data */}
         <Link
           to={`/view-item/${_id}`}
-          state={{
-            image,
-            title,
-            description,
-            prepTime,
-            cookTime,
-            servings,
-            calories,
-            ingredients,
-            instruction,
-            tags,
-            isPublic,
-          }}
-        >
+          state={{ image, title, description, prepTime, cookTime, servings, calories, ingredients, instruction, tags, isPublic}} >
           <h1 className="text-green-600 font-[500] cursor-pointer hover:underline">
             View Recipe
           </h1>

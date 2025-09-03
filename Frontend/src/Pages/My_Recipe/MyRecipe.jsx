@@ -6,7 +6,7 @@ import RecipeBtn from "../../Components/Crud/AddRecipeBtn";
 
 const MyRecipe = () => {
   const [recipes, setRecipes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // Add search term state
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   useEffect(() => {
     const fetchPrivateRecipes = async () => {
@@ -38,7 +38,7 @@ const MyRecipe = () => {
     <>
       <Navbar />
       <RecipeBtn name="My Recipe" />
-      <div className="mt-[30px] max-w-[1500px] m-[auto] relative  px-4">
+      <div className="mt-[30px] max-w-[1400px] m-[auto] relative  px-4">
         <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[23px]" />
         <input
           type="text"

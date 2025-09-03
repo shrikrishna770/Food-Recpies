@@ -7,7 +7,6 @@ const Wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Listen for wishlist updates (from CardComponent)
     useEffect(() => {
         const updateWishlist = () => {
             const user = localStorage.getItem("currentUser");
@@ -15,13 +14,12 @@ const Wishlist = () => {
             setWishlist(wishlist);
         };
 
-        updateWishlist(); // Initial load
+        updateWishlist(); 
 
         window.addEventListener("wishlistUpdated", updateWishlist);
         return () => window.removeEventListener("wishlistUpdated", updateWishlist);
     }, []);
 
-    // Filter wishlist by search term
     const filteredWishlist = wishlist.filter((item) => {
         const title = item.title || "";
         const description = item.description || "";
@@ -33,7 +31,7 @@ const Wishlist = () => {
     });
 
     return (
-        <div className="flex flex-col max-w-[1500px] m-[auto]">
+        <div className="flex flex-col max-w-[1400px] m-[auto]">
             <Navbar />
             <div className=" w-full mt-[100px] px-4 ">
                 <h1 className="font-[500] text-[22px]">Wishlist</h1>
