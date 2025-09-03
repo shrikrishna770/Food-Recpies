@@ -36,7 +36,19 @@ const AddItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-const recipeData = { title, description, image, prepTime, cookTime, servings, calories, ingredients, instruction: instructions.filter(step => step.trim() !== "")};
+    const recipeData = {
+      title,
+      description,
+      image,
+      prepTime,
+      cookTime,
+      servings,
+      calories,
+      ingredients,
+      instruction: instructions.filter((step) => step.trim() !== ""),
+      tags,
+      isPublic, // ✅ Include public/private flag
+    };
 
     try {
       const res = await fetch("http://localhost:5000/api/recipes", {
@@ -53,7 +65,8 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
         navigate("/dashboard");
       } else {
         const error = await res.json();
-        alert("Error: " + error.error);
+        console.error("POST /recipes error:", error); // 🔹 log for debugging
+        toast.error("Error: " + (error.error || error.message || "Unknown error"));
       }
     } catch (err) {
       console.error(err);
@@ -68,7 +81,8 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
         <div className="flex items-center py-[10px]">
           <Link
             to="/dashboard"
-            className="flex items-center gap-1 text-[#16A34A] font-[500]" >
+            className="flex items-center gap-1 text-[#16A34A] font-[500]"
+          >
             <MdArrowBack size={24} />
             <span>Back to My Recipes</span>
           </Link>
@@ -78,16 +92,33 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
           <h1 className="font-[500] text-[22px]">Add New Recipe</h1>
 
           <form onSubmit={handleSubmit}>
+            {/* Title */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label htmlFor="recipeTitle">Recipe Title</label>
-              <input type="text" id="recipeTitle" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter recipe title" className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"/>
+              <input
+                type="text"
+                id="recipeTitle"
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter recipe title"
+                className="border border-gray-300 outline-none rounded-lg h-[40px] pl-[10px] text-[14px] text-[#575959]"
+              />
             </div>
 
+            {/* Description */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label htmlFor="description">Description</label>
-              <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Brief description of your recipe" className="border border-gray-300 outline-none rounded-lg h-[80px] pl-[10px] pt-[10px] text-[14px] text-[#575959]"/>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Brief description of your recipe"
+                className="border border-gray-300 outline-none rounded-lg h-[80px] pl-[10px] pt-[10px] text-[14px] text-[#575959]"
+              />
             </div>
 
+            {/* Image */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label htmlFor="image">Image URL</label>
               <input
@@ -111,6 +142,7 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
               </div>
             )}
 
+            {/* Prep & Cook Time */}
             <div className="flex mt-[20px] gap-[20px]">
               <div className="flex flex-col w-[50%] gap-[5px]">
                 <label>Prep Time</label>
@@ -136,6 +168,7 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
               </div>
             </div>
 
+            {/* Servings & Calories */}
             <div className="flex mt-[20px] gap-[20px]">
               <div className="flex flex-col w-[50%] gap-[5px]">
                 <label>Servings</label>
@@ -161,6 +194,7 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
               </div>
             </div>
 
+            {/* Ingredients */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label>Ingredients</label>
               {ingredients.map((item, index) => (
@@ -168,20 +202,29 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
                   <input
                     type="text"
                     value={item}
-                    onChange={(e) =>
-                      handleChange(ingredients, setIngredients, index, e.target.value)
-                    }
+                    onChange={(e) => handleChange(ingredients, setIngredients, index, e.target.value)}
                     placeholder={`Ingredient ${index + 1}`}
                     className="border border-gray-300 outline-none rounded-lg w-full h-[40px] pl-[10px]"
                   />
                   {ingredients.length > 1 && (
-                    <span className="text-[20px] cursor-pointer text-red-500" onClick={() => removeField(ingredients, setIngredients, index)}> ×</span>
+                    <span
+                      className="text-[20px] cursor-pointer text-red-500"
+                      onClick={() => removeField(ingredients, setIngredients, index)}
+                    >
+                      ×
+                    </span>
                   )}
                 </div>
               ))}
-              <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(ingredients, setIngredients)}> + Add Ingredient</h1>
+              <h1
+                className="text-[#16A34A] cursor-pointer mt-2"
+                onClick={() => addField(ingredients, setIngredients)}
+              >
+                + Add Ingredient
+              </h1>
             </div>
 
+            {/* Instructions */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label>Instructions</label>
               {instructions.map((step, index) => (
@@ -189,20 +232,29 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
                   <span>{index + 1}.</span>
                   <textarea
                     value={step}
-                    onChange={(e) =>
-                      handleChange(instructions, setInstructions, index, e.target.value)
-                    }
+                    onChange={(e) => handleChange(instructions, setInstructions, index, e.target.value)}
                     placeholder={`Step ${index + 1}`}
                     className="border border-gray-300 outline-none rounded-lg w-full h-[60px] pl-[10px]"
                   />
                   {instructions.length > 1 && (
-                    <span className="text-[20px] cursor-pointer text-red-500" onClick={() => removeField(instructions, setInstructions, index)}> ×</span>
+                    <span
+                      className="text-[20px] cursor-pointer text-red-500"
+                      onClick={() => removeField(instructions, setInstructions, index)}
+                    >
+                      ×
+                    </span>
                   )}
                 </div>
               ))}
-              <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(instructions, setInstructions)}> + Add Step</h1>
+              <h1
+                className="text-[#16A34A] cursor-pointer mt-2"
+                onClick={() => addField(instructions, setInstructions)}
+              >
+                + Add Step
+              </h1>
             </div>
 
+            {/* Tags */}
             <div className="flex flex-col mt-[20px] gap-[5px]">
               <label>Tags</label>
               <div className="flex flex-row flex-wrap gap-[10px]">
@@ -216,14 +268,25 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
                       className="border border-gray-300 outline-none rounded-lg w-full h-[40px] pl-[10px]"
                     />
                     {tags.length > 1 && (
-                      <span className="text-[20px] cursor-pointer text-red-500" onClick={() => removeField(tags, setTags, index)}>  ×</span>
+                      <span
+                        className="text-[20px] cursor-pointer text-red-500"
+                        onClick={() => removeField(tags, setTags, index)}
+                      >
+                        ×
+                      </span>
                     )}
                   </div>
                 ))}
               </div>
-              <h1 className="text-[#16A34A] cursor-pointer mt-2" onClick={() => addField(tags, setTags)}>  + Add Tag</h1>
+              <h1
+                className="text-[#16A34A] cursor-pointer mt-2"
+                onClick={() => addField(tags, setTags)}
+              >
+                + Add Tag
+              </h1>
             </div>
 
+            {/* Public */}
             <div className="flex flex-col gap-[10px] mt-[20px] text-[#575959]">
               <div className="flex flex-row gap-[10px]">
                 <input
@@ -237,11 +300,19 @@ const recipeData = { title, description, image, prepTime, cookTime, servings, ca
               <p>Public recipes will appear in the community feed for other users to discover.</p>
             </div>
 
+            {/* Submit */}
             <div className="mt-[20px] flex justify-end gap-[20px]">
-              <button type="button" className="border border-gray-300 px-[20px] py-[8px] rounded-[8px]">
+              <button
+                type="button"
+                onClick={() => navigate("/dashboard")}
+                className="border border-gray-300 px-[20px] py-[8px] rounded-[8px]"
+              >
                 Cancel
               </button>
-              <button type="submit" className="border px-[20px] py-[8px] rounded-[8px] bg-green-600 text-white hover:bg-green-700">
+              <button
+                type="submit"
+                className="border px-[20px] py-[8px] rounded-[8px] bg-green-600 text-white hover:bg-green-700"
+              >
                 Save Recipe
               </button>
             </div>
