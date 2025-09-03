@@ -3,11 +3,25 @@ import { CiHeart } from "react-icons/ci";
 import { FiClock } from "react-icons/fi";
 import { GoPeople } from "react-icons/go";
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const CardComponent = ({ image, title, description, prepTime, servings, margin }) => {
+const CardComponent = ({
+  _id,
+  image,
+  title,
+  description,
+  prepTime,
+  cookTime,
+  servings,
+  calories,
+  ingredients = [],
+  instruction = [],
+  tags = [],
+  isPublic = false,
+  margin,
+}) => {
   const [liked, setLiked] = useState(false);
 
-  // Check if this recipe is already in wishlist on mount
   useEffect(() => {
     const user = localStorage.getItem("currentUser");
     const wishlist = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
@@ -15,22 +29,18 @@ const CardComponent = ({ image, title, description, prepTime, servings, margin }
     setLiked(isLiked);
   }, [title]);
 
-  // Add to wishlist in localStorage
   const addToWishlist = () => {
     const user = localStorage.getItem("currentUser");
     const wishlistKey = `wishlist_${user}`;
     const wishlist = JSON.parse(localStorage.getItem(wishlistKey)) || [];
-    // Prevent duplicates
     if (!wishlist.some(item => item.title === title)) {
-      wishlist.push({ image, title, description, prepTime, servings });
+      wishlist.push({ _id, image, title, description, prepTime, cookTime, servings });
       localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
     }
     setLiked(true);
-    // Optionally, trigger a custom event to notify other components
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-  // Remove from wishlist in localStorage
   const removeFromWishlist = () => {
     const user = localStorage.getItem("currentUser");
     const wishlistKey = `wishlist_${user}`;
@@ -44,9 +54,14 @@ const CardComponent = ({ image, title, description, prepTime, servings, margin }
   return (
     <div
       className="border border-gray-300 w-[460px] h-[400px] rounded-[20px] overflow-hidden shadow-xl hover:scale-101 transform transition-transform duration-100 ease-in-out"
-      style={{ margin }}>
+      style={{ margin }}
+    >
       <div className="h-[200px] w-full overflow-hidden">
-        <img src={image} alt={title} className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"/>
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"
+        />
       </div>
 
       <div className="mt-[15px] px-[15px] flex flex-col gap-[8px]">
@@ -80,7 +95,27 @@ const CardComponent = ({ image, title, description, prepTime, servings, margin }
           </div>
         </div>
 
-        <h1 className="text-green-600 font-[500] cursor-pointer hover:underline"> View Recipe </h1>
+        {/* Link to ViewItem with all recipe data */}
+        <Link
+          to={`/view-item/${_id}`}
+          state={{
+            image,
+            title,
+            description,
+            prepTime,
+            cookTime,
+            servings,
+            calories,
+            ingredients,
+            instruction,
+            tags,
+            isPublic,
+          }}
+        >
+          <h1 className="text-green-600 font-[500] cursor-pointer hover:underline">
+            View Recipe
+          </h1>
+        </Link>
       </div>
     </div>
   );

@@ -48,9 +48,9 @@ const Wishlist = () => {
                     placeholder="Search Wishlist recipes..."
                 />
             </div>
-            <div className="flex flex-wrap gap-8  px-[25px] mt-[50px]">
+            <div className="flex flex-wrap gap-8 px-[25px] mt-[30px] ">
                 {filteredWishlist.length === 0 ? (
-                    <h2 className="text-xl text-gray-600">No Wishlist recipe found.</h2>
+                    <h2 className="text-[17px] text-gray-600">No Wishlist recipe found.</h2>
                 ) : (
                     [...filteredWishlist].reverse().map((item, idx) => (
                         <WishlistCard

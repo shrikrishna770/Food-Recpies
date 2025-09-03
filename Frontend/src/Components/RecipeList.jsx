@@ -14,14 +14,21 @@ const RecipeList = ({ recipes, emptyMessage }) => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: index * 0.01 }} 
+          transition={{ duration: 0.5, delay: index * 0.01 }}
         >
           <CardComponent
+            _id={recipe._id}
             title={recipe.title}
             description={recipe.description}
             image={recipe.image}
             prepTime={recipe.prepTime}
+            cookTime={recipe.cookTime}
             servings={recipe.servings}
+            calories={recipe.calories}
+            ingredients={recipe.ingredients}
+            instruction={recipe.instruction}
+            tags={recipe.tags}
+            isPublic={recipe.isPublic}
           />
         </motion.div>
       ))}
