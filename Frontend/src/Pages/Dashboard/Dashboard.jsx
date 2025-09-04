@@ -6,27 +6,10 @@ import Calories from "../../Components/Calories/Calories";
 import WishlistCard from "../Wishliat/WishlistCard";
 
 const Dashboard = () => {
-  const [recipes, setRecipes] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/recipes");
-        const data = await res.json();
-        setRecipes(data);
-      } catch (err) {
-        console.error("Error fetching recipes:", err);
-      }
-    };
-    fetchRecipes();
-
-    const user = localStorage.getItem("currentUser");
-    const wishlistData = JSON.parse(localStorage.getItem(`wishlist_${user}`)) || [];
-    setWishlist(wishlistData.slice(0, 3));
-  }, []);
-
+  // Load wishlist from localStorage
   useEffect(() => {
     const updateWishlist = () => {
       const user = localStorage.getItem("currentUser");
@@ -35,10 +18,20 @@ const Dashboard = () => {
     };
 
     updateWishlist();
-
     window.addEventListener("wishlistUpdated", updateWishlist);
+
     return () => window.removeEventListener("wishlistUpdated", updateWishlist);
   }, []);
+
+  const handleRemove = (_id) => {
+    const user = localStorage.getItem("currentUser");
+    const wishlistKey = `wishlist_${user}`;
+    let wishlistData = JSON.parse(localStorage.getItem(wishlistKey)) || [];
+    wishlistData = wishlistData.filter((item) => item._id !== _id);
+    localStorage.setItem(wishlistKey, JSON.stringify(wishlistData));
+    setWishlist(wishlistData.slice(-3).reverse());
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
 
   return (
     <>
@@ -56,36 +49,27 @@ const Dashboard = () => {
             View More
           </button>
         </div>
+
         <div className="flex flex-wrap gap-8">
           {wishlist.length === 0 ? (
             <h2 className="text-xl text-gray-600">No Wishlist recipe found.</h2>
           ) : (
-            wishlist.map((item, idx) => (
+            wishlist.map((item) => (
               <WishlistCard
-                key={idx}
+                key={item._id}
+                _id={item._id}
                 image={item.image}
                 title={item.title}
                 description={item.description}
                 prepTime={item.prepTime}
+                cookTime={item.cookTime}
                 servings={item.servings}
+                onRemove={() => handleRemove(item._id)}
                 margin="0"
-                onRemove={() => {
-                  const user = localStorage.getItem("currentUser");
-                  const wishlistKey = `wishlist_${user}`;
-                  let wishlistLocal = JSON.parse(localStorage.getItem(wishlistKey)) || [];
-
-                  wishlistLocal = wishlistLocal.filter(i => i.title !== item.title);
-                  localStorage.setItem(wishlistKey, JSON.stringify(wishlistLocal));
-
-                  setWishlist(wishlistLocal.slice(-3).reverse());
-
-                  window.dispatchEvent(new Event("wishlistUpdated"));
-                }}
               />
             ))
           )}
         </div>
-
       </div>
     </>
   );
