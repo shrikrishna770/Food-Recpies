@@ -1,3 +1,4 @@
+// RecipeList.jsx
 import { motion } from "framer-motion";
 import CardComponent from "./Card/Card";
 
@@ -15,6 +16,7 @@ const RecipeList = ({ recipes, emptyMessage }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: index * 0.01 }}
+          className="flex" // Add flex to the wrapper
         >
           <CardComponent
             _id={recipe._id}

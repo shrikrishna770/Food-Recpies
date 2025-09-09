@@ -47,27 +47,27 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[1400px] m-auto">
+    <div className="flex flex-col max-w-[1400px] mx-auto px-4 w-full">
       <Navbar />
 
-      <div className="w-full mt-[100px] px-4">
-        <h1 className="font-[500] text-[22px]">Wishlist</h1>
+      <div className="w-full mt-24 mb-6 md:mt-[100px]">
+        <h1 className="font-semibold text-2xl md:text-[22px]">Wishlist</h1>
       </div>
 
-      <div className="mt-[30px] relative px-4">
-        <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[23px]" />
+      <div className="relative mb-6 w-full">
+        <HiMagnifyingGlass className="absolute text-xl text-gray-400 font-light top-1/2 -translate-y-1/2 left-4 md:left-4" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 rounded-md h-[40px] w-full pl-[35px] outline-none text-[14px]"
-          placeholder="Search Wishlist recipes..."
+          className="border border-gray-300 rounded-lg h-10 w-full pl-10 pr-4 outline-none text-sm focus:ring-2 focus:ring-green-500 transition-colors"
+          placeholder="Search your recipes..."
         />
       </div>
 
-      <div className="flex flex-wrap gap-6 px-[25px] mt-[30px]">
+      <div className="grid grid-cols-1 xxs:grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
         {filteredWishlist.length === 0 ? (
-          <h2 className="text-[17px] text-gray-600">
+          <h2 className="text-lg text-gray-600 col-span-full text-center">
             No Wishlist recipe found.
           </h2>
         ) : (
@@ -81,7 +81,6 @@ const Wishlist = () => {
               prepTime={item.prepTime}
               cookTime={item.cookTime}
               servings={item.servings}
-              margin="0"
               onRemove={() => handleRemove(item._id)}
             />
           ))
