@@ -6,7 +6,7 @@ import RecipeBtn from "../../Components/Crud/AddRecipeBtn";
 
 const MyRecipe = () => {
   const [recipes, setRecipes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchPrivateRecipes = async () => {
@@ -38,17 +38,19 @@ const MyRecipe = () => {
     <>
       <Navbar />
       <RecipeBtn name="My Recipe" />
-      <div className="mt-[30px] max-w-[1400px] m-[auto] relative  px-4">
-        <HiMagnifyingGlass className="absolute text-[22px] text-gray-400 font-[200] top-[8px] left-[23px]" />
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          placeholder="Search your recipes..."
-          className="border border-gray-300 rounded-md h-[40px] w-full pl-[35px] outline-none text-[14px] "
-        />
+      <div className="mt-8 px-4 max-w-[1400px] mx-auto w-full">
+        <div className="relative">
+          <HiMagnifyingGlass className="absolute text-xl text-gray-400 font-light top-1/2 -translate-y-1/2 left-4 md:left-4" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            placeholder="Search your recipes..."
+            className="border border-gray-300 rounded-lg h-10 w-full pl-10 pr-4 outline-none text-sm focus:ring-2 focus:ring-green-500 transition-colors"
+          />
+        </div>
       </div>
-      <div className="mt-[20px]">
+      <div className="mt-8">
         <RecipeList recipes={filteredRecipes} emptyMessage="No private recipes found." />
       </div>
     </>
