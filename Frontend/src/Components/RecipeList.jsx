@@ -3,11 +3,11 @@ import CardComponent from "./Card/Card";
 
 const RecipeList = ({ recipes, emptyMessage }) => {
   if (!recipes || recipes.length === 0) {
-    return <p className="text-gray-500 text-center w-full">{emptyMessage}</p>;
+    return <p className="text-gray-500 text-center w-full mt-10">{emptyMessage}</p>;
   }
 
   return (
-    <div className="max-w-[1400px] w-full m-auto flex flex-wrap gap-[35px] p-[20px] px-4 mt-[20px]">
+    <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 xxs:grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 pb-8 mt-8">
       {recipes.map((recipe, index) => (
         <motion.div
           key={recipe._id}

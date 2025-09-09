@@ -39,7 +39,7 @@ const CardComponent = ({ _id, image, title, description, prepTime, cookTime, ser
 
   return (
     <div
-      className="border border-gray-300 w-[430px] h-[400px] rounded-[20px] overflow-hidden shadow-xl hover:scale-101 transform transition-transform duration-100 ease-in-out"
+      className="border border-gray-300 sm:w-[430px] h-[400px] rounded-[20px] overflow-hidden shadow-xl hover:scale-101 transform transition-transform duration-100 ease-in-out"
       style={{ margin }}>
       <div className="h-[200px] w-full overflow-hidden">
         <img
