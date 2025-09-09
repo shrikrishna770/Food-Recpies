@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom"; // ✅ added useLocation
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { FiEdit, FiClock } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdArrowBack } from "react-icons/md";
@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const ViewItem = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ added location to trigger refetch
+  const location = useLocation();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -30,6 +30,7 @@ const ViewItem = () => {
       setRecipe(data);
     } catch (err) {
       console.error("Failed to fetch recipe:", err);
+      toast.error("Failed to load recipe details.");
     } finally {
       setLoading(false);
     }
@@ -37,25 +38,42 @@ const ViewItem = () => {
 
   useEffect(() => {
     fetchRecipe();
-  }, [id, location.state]);
+    // ✅ Removed `location.state` from the dependency array. 
+    // The component should only refetch if the `id` changes.
+  }, [id]);
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (!recipe) return <p className="text-center mt-10">Recipe not found</p>;
 
+  // Ensure recipe.user is handled correctly
   const recipeOwnerId = recipe?.user?._id || recipe?.user;
   const isOwner = recipeOwnerId === currentUserId;
 
-  const handleDelete = async () => {
+ const handleDelete = async () => {
+    // Log values before sending the request
+    console.log("Recipe ID to be deleted:", recipe._id);
+    console.log("Token from localStorage:", localStorage.getItem("token"));
+
     try {
       const res = await fetch(`http://localhost:5000/api/recipes/${recipe._id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      if (!res.ok) throw new Error("Delete failed");
+
+      // Log the server's response status
+      console.log("Server response status:", res.status);
+
+      if (!res.ok) {
+          // If the response is not OK, try to read the error message from the body
+          const errorData = await res.json();
+          console.error("Delete failed with server message:", errorData);
+          throw new Error(errorData.error || "Delete failed");
+      }
+
       toast.success("Recipe deleted successfully!");
       navigate("/my-recipes");
     } catch (err) {
-      console.error(err);
+      console.error("Caught a client-side error:", err);
       toast.error(err.message || "Failed to delete recipe");
     }
   };
@@ -75,7 +93,7 @@ const ViewItem = () => {
 
         <div className="mt-4 shadow-xl rounded-xl pb-4 sm:pb-6">
           {image && (
-            <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
+            <div className="relative w-full pb-[56.25%]">
               <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover rounded-t-xl" />
             </div>
           )}

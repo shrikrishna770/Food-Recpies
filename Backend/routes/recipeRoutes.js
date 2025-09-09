@@ -71,18 +71,22 @@ router.get("/:id", async (req, res) => {
 });
 
 // DELETE recipe by ID
+// DELETE recipe (only owner) 
 router.delete("/:id", auth, async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ error: "Recipe not found" });
 
     if (recipe.user.toString() !== req.user.id) {
-      return res.status(403).json({ error: "Unauthorized" });
+      return res.status(403).json({ error: "Not authorized" });
     }
-
-    await recipe.remove();
+    
+    // This is the correct line
+    await recipe.deleteOne();
+    
     res.json({ message: "Recipe deleted successfully" });
-  } catch (err) {
+  }
+  catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
