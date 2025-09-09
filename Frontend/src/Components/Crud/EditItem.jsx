@@ -38,12 +38,14 @@ const EditItem = () => {
                 setCookTime(data.cookTime || "");
                 setServings(data.servings || "");
                 setCalories(data.calories || "");
+                // Ensure arrays are not null/undefined and have at least one empty string
                 setIngredients(data.ingredients?.length ? data.ingredients : [""]);
                 setInstructions(data.instruction?.length ? data.instruction : [""]);
                 setTags(data.tags?.length ? data.tags : [""]);
                 setIsPublic(data.isPublic || false);
             } catch (err) {
                 console.error("Failed to fetch recipe:", err);
+                toast.error("Failed to load recipe data.");
             }
         };
 
@@ -67,7 +69,6 @@ const EditItem = () => {
    const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Filter out empty ingredients, instructions, and tags
     const recipeData = {
         title: title.trim(),
         description: description.trim(),
@@ -76,6 +77,7 @@ const EditItem = () => {
         cookTime: cookTime.trim(),
         servings: servings.trim(),
         calories: calories.trim(),
+        // Filter out any empty strings from the arrays
         ingredients: ingredients.filter(item => item.trim() !== ""),
         instruction: instructions.filter(step => step.trim() !== ""),
         tags: tags.filter(tag => tag.trim() !== ""),
@@ -99,12 +101,12 @@ const EditItem = () => {
             body: JSON.stringify(recipeData),
         });
 
-        const data = await res.json();
-
         if (res.ok) {
             toast.success("Recipe updated successfully ✅");
-            navigate("/dashboard");
+            // ✅ Change to redirect to the user's recipe list
+            navigate("/my-recipes");
         } else {
+            const data = await res.json();
             console.error("Update failed:", data);
             if (res.status === 403) {
                 toast.error("You are not authorized to edit this recipe ❌");
