@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xxs: 21.875rem;
+  --breakpoint-xs: 25rem; /* 👈 400px */
+  --breakpoint-sm: 40rem; /* 640px (default) */
+  --breakpoint-md: 48rem; /* 768px (default) */
+  --breakpoint-lg: 64rem; /* 1024px (default) */
+  --breakpoint-xl: 80rem; /* 1280px (default) */
+  --breakpoint-2xl: 96rem; /* 1536px (default) */
+}
 *{
     font-family: Poppins;
     scrollbar-width: none;
