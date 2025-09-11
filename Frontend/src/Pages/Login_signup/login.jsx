@@ -78,7 +78,13 @@ function Login() {
       setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
       console.error("Google login error:", err);
-      toast.error(err.response?.data?.message || "Google login failed ❌");
+      if (err.code === "auth/popup-closed-by-user") {
+        toast.error(
+          "Google login popup was closed. Please try again and complete the login."
+        );
+      } else {
+        toast.error(err.response?.data?.message || "Google login failed ❌");
+      }
     }
   };
 
