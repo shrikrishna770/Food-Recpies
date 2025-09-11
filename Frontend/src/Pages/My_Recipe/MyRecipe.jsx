@@ -12,9 +12,12 @@ const MyRecipe = () => {
     const fetchPrivateRecipes = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/recipes/private", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await fetch(
+          "https://food-recpies.onrender.com/api/recipes/private",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setRecipes(data);
       } catch (err) {
@@ -44,14 +47,17 @@ const MyRecipe = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search your recipes..."
             className="border border-gray-300 rounded-lg h-10 w-full pl-10 pr-4 outline-none text-sm focus:ring-2 focus:ring-green-500 transition-colors"
           />
         </div>
       </div>
       <div className="mt-8">
-        <RecipeList recipes={filteredRecipes} emptyMessage="No private recipes found." />
+        <RecipeList
+          recipes={filteredRecipes}
+          emptyMessage="No private recipes found."
+        />
       </div>
     </>
   );

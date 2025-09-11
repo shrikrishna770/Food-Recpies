@@ -10,9 +10,11 @@ const PublicFeed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/recipes"); 
+        const res = await fetch(
+          "https://food-recpies.onrender.com/api/recipes"
+        );
         const data = await res.json();
-        setRecipes(data); 
+        setRecipes(data);
       } catch (err) {
         console.error("Error fetching recipes:", err);
       }
@@ -24,7 +26,10 @@ const PublicFeed = () => {
     const title = recipe.title || "";
     const description = recipe.description || "";
     const term = searchTerm.toLowerCase();
-    return title.toLowerCase().includes(term) || description.toLowerCase().includes(term);
+    return (
+      title.toLowerCase().includes(term) ||
+      description.toLowerCase().includes(term)
+    );
   });
 
   return (
@@ -47,7 +52,7 @@ const PublicFeed = () => {
       <RecipeList
         recipes={filteredRecipes.map((recipe) => ({
           ...recipe,
-          creatorName: recipe.user?.name || "Anonymous" 
+          creatorName: recipe.user?.name || "Anonymous",
         }))}
         emptyMessage="No public recipes found."
       />
