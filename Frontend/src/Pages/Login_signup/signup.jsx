@@ -23,7 +23,7 @@ function Signup() {
       try {
         const { name, email, password } = values;
         const response = await axios.post(
-          "http://localhost:5000/api/auth/signup",
+          "https://food-recpies.onrender.com/api/auth/signup",
           { name, email, password }
         );
 

@@ -51,7 +51,7 @@ const AddItem = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/recipes", {
+      const res = await fetch("https://food-recpies.onrender.com/api/recipes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,9 @@ const AddItem = () => {
       } else {
         const error = await res.json();
         console.error("POST /recipes error:", error); // 🔹 log for debugging
-        toast.error("Error: " + (error.error || error.message || "Unknown error"));
+        toast.error(
+          "Error: " + (error.error || error.message || "Unknown error")
+        );
       }
     } catch (err) {
       console.error(err);
@@ -89,7 +91,9 @@ const AddItem = () => {
         </div>
 
         <div className="mt-4 p-4 sm:p-6 md:p-8 shadow-lg rounded-lg">
-          <h1 className="font-medium text-xl sm:text-2xl mb-4">Add New Recipe</h1>
+          <h1 className="font-medium text-xl sm:text-2xl mb-4">
+            Add New Recipe
+          </h1>
 
           <form onSubmit={handleSubmit}>
             {/* Title */}
@@ -202,14 +206,23 @@ const AddItem = () => {
                   <input
                     type="text"
                     value={item}
-                    onChange={(e) => handleChange(ingredients, setIngredients, index, e.target.value)}
+                    onChange={(e) =>
+                      handleChange(
+                        ingredients,
+                        setIngredients,
+                        index,
+                        e.target.value
+                      )
+                    }
                     placeholder={`Ingredient ${index + 1}`}
                     className="border border-gray-300 outline-none rounded-lg w-full h-10 px-3 text-sm focus:ring-2 focus:ring-green-500 transition-colors"
                   />
                   {ingredients.length > 1 && (
                     <span
                       className="text-2xl cursor-pointer text-red-500"
-                      onClick={() => removeField(ingredients, setIngredients, index)}
+                      onClick={() =>
+                        removeField(ingredients, setIngredients, index)
+                      }
                     >
                       ×
                     </span>
@@ -232,14 +245,23 @@ const AddItem = () => {
                   <span className="mt-3">{index + 1}.</span>
                   <textarea
                     value={step}
-                    onChange={(e) => handleChange(instructions, setInstructions, index, e.target.value)}
+                    onChange={(e) =>
+                      handleChange(
+                        instructions,
+                        setInstructions,
+                        index,
+                        e.target.value
+                      )
+                    }
                     placeholder={`Step ${index + 1}`}
                     className="border border-gray-300 outline-none rounded-lg w-full h-20 p-3 text-sm resize-none focus:ring-2 focus:ring-green-500 transition-colors"
                   />
                   {instructions.length > 1 && (
                     <span
                       className="text-2xl cursor-pointer text-red-500 mt-2"
-                      onClick={() => removeField(instructions, setInstructions, index)}
+                      onClick={() =>
+                        removeField(instructions, setInstructions, index)
+                      }
                     >
                       ×
                     </span>
@@ -259,11 +281,16 @@ const AddItem = () => {
               <label>Tags</label>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag, index) => (
-                  <div key={index} className="flex items-center gap-1 w-full sm:w-auto">
+                  <div
+                    key={index}
+                    className="flex items-center gap-1 w-full sm:w-auto"
+                  >
                     <input
                       type="text"
                       value={tag}
-                      onChange={(e) => handleChange(tags, setTags, index, e.target.value)}
+                      onChange={(e) =>
+                        handleChange(tags, setTags, index, e.target.value)
+                      }
                       placeholder="e.g. vegetarian"
                       className="border border-gray-300 outline-none rounded-lg w-full h-10 px-3 text-sm focus:ring-2 focus:ring-green-500 transition-colors"
                     />
@@ -297,7 +324,10 @@ const AddItem = () => {
                 />
                 <label htmlFor="public">Share this recipe publicly</label>
               </div>
-              <p className="text-sm">Public recipes will appear in the community feed for other users to discover.</p>
+              <p className="text-sm">
+                Public recipes will appear in the community feed for other users
+                to discover.
+              </p>
             </div>
 
             {/* Submit */}

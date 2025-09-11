@@ -21,12 +21,15 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/login",
+          "https://food-recpies.onrender.com/api/auth/login",
           values
         );
 
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("currentUser", res.data.user.id || res.data.user._id);
+        localStorage.setItem(
+          "currentUser",
+          res.data.user.id || res.data.user._id
+        );
         navigate("/dashboard");
         localStorage.setItem(
           "user",
@@ -55,7 +58,7 @@ function Login() {
       const idToken = await user.getIdToken();
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/google-login",
+        "https://food-recpies.onrender.com/api/auth/google-login",
         { idToken }
       );
 
